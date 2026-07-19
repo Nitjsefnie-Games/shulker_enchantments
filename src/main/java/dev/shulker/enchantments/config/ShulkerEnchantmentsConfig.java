@@ -41,7 +41,7 @@ public final class ShulkerEnchantmentsConfig {
 	public int nestedContainerSearchDepth = 255;
 
 	// --- Algorithm switches ---
-	public boolean strongerSiphon = false;
+	public boolean strongerSiphon = true;
 	public boolean weakerVacuum = false;
 
 	// --- Refill-specific knobs ---
