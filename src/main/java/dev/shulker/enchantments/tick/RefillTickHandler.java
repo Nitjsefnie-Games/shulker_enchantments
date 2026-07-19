@@ -46,28 +46,27 @@ public final class RefillTickHandler {
 		// NOTE: refill-while-inventory-open suppression is NOT enforced here - see
 		// ShulkerEnchantmentsConfig#refillWhileInventoryOpenDefault javadoc for why.
 
-		// A container-slot interaction (move/drag/shift-click, handled server-side by
-		// ServerGamePacketListenerImpl#handleContainerClick) can drop the held stack's count
+		// A container-slot interaction (move/drag/shift-click) can drop the held stack's count
 		// exactly like consumption does. ServerGamePacketListenerImplMixin records the tick of
-		// any such interaction; if it happened on this tick, the count drop we're about to
-		// observe is a move, not a consumption, so the tick-based trigger must not fire.
-		boolean movedThisTick = ContainerInteractionTracker.interactedOnTick(
-			player.getUUID(), player.level().getServer().getTickCount()
-		);
+		// any such interaction (both survival handleContainerClick and creative
+		// handleSetCreativeModeSlot); if it happened on this tick, the count drop we're about
+		// to observe is a move, not a consumption, so the tick-based trigger must not fire.
+		int nowTick = player.level().getServer().getTickCount();
+		// Tolerance 1: a container-click on tick N causes an inventory count drop that this
+		// end-of-tick check only observes on tick N+1, so suppress on the click tick AND the
+		// following tick. See ContainerInteractionTracker#interactedWithinTicks.
+		boolean movedThisTick = ContainerInteractionTracker.interactedWithinTicks(player.getUUID(), nowTick, 1);
+		boolean swapped = ItemStack.matches(mainNow, previous.offhand) && ItemStack.matches(offNow, previous.mainhand);
+		boolean selectedChanged = selectedNow != previous.selectedSlot;
 
-		if (!creativeBlocked && !movedThisTick) {
-			boolean swapped = ItemStack.matches(mainNow, previous.offhand) && ItemStack.matches(offNow, previous.mainhand);
-			boolean selectedChanged = selectedNow != previous.selectedSlot;
+		if (!creativeBlocked && !movedThisTick && !swapped && !selectedChanged) {
+			Shortfall mainShortfall = computeShortfall(previous.mainhand, mainNow, config, false);
+			Shortfall offShortfall = computeShortfall(previous.offhand, offNow, config, true);
 
-			if (!swapped && !selectedChanged) {
-				Shortfall mainShortfall = computeShortfall(previous.mainhand, mainNow, config, false);
-				Shortfall offShortfall = computeShortfall(previous.offhand, offNow, config, true);
-
-				if (mainShortfall.qualifies) {
-					RefillLogic.resolveRefill(player, selectedNow, mainShortfall.template, mainShortfall.amount, config);
-				} else if (offShortfall.qualifies) {
-					RefillLogic.resolveRefill(player, Inventory.SLOT_OFFHAND, offShortfall.template, offShortfall.amount, config);
-				}
+			if (mainShortfall.qualifies) {
+				RefillLogic.resolveRefill(player, selectedNow, mainShortfall.template, mainShortfall.amount, config);
+			} else if (offShortfall.qualifies) {
+				RefillLogic.resolveRefill(player, Inventory.SLOT_OFFHAND, offShortfall.template, offShortfall.amount, config);
 			}
 		}
 

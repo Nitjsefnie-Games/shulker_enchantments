@@ -28,13 +28,16 @@ public final class ContainerInteractionTracker {
 	}
 
 	/**
-	 * Whether {@code playerId} performed a container-slot interaction during {@code tick}.
-	 * Both callers must derive {@code tick} from the same counter
-	 * ({@code ServerLevel#getServer()}{@code .getTickCount()}) for this comparison to be
-	 * meaningful.
+	 * Whether {@code playerId} performed a container-slot interaction on {@code currentTick} or
+	 * within the preceding {@code tolerance} ticks. A container-click packet is processed (and
+	 * its tick recorded here) on tick N, but the inventory count drop it causes is only observed
+	 * by {@link RefillTickHandler}'s end-of-tick comparison on tick N+1 - so a tolerance of at
+	 * least 1 is required to catch a move; an exact-tick match always misses by one.
+	 * Both callers must derive the tick from the same counter
+	 * ({@code ServerLevel#getServer()}{@code .getTickCount()}).
 	 */
-	public static boolean interactedOnTick(final UUID playerId, final int tick) {
+	public static boolean interactedWithinTicks(final UUID playerId, final int currentTick, final int tolerance) {
 		Integer lastTick = LAST_INTERACTION_TICK.get(playerId);
-		return lastTick != null && lastTick == tick;
+		return lastTick != null && lastTick <= currentTick && lastTick >= currentTick - tolerance;
 	}
 }
