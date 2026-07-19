@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "dev.nitjsefnie.shulkerenchantments.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"ItemEntityMixin",
+		"ProjectileWeaponItemMixin",
+		"ServerGamePacketListenerImplMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

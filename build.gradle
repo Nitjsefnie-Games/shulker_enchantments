@@ -12,7 +12,7 @@ repositories {
 
 loom {
 	mods {
-		"shulker_enchantments" {
+		"shulker_enchantments_reborn" {
 			sourceSet sourceSets.main
 		}
 	}

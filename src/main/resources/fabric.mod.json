@@ -1,8 +1,8 @@
 {
 	"schemaVersion": 1,
-	"id": "shulker_enchantments",
+	"id": "shulker_enchantments_reborn",
 	"version": "${version}",
-	"name": "Shulker Enchantments",
+	"name": "Shulker Enchantments Reborn",
 	"description": "Adds helpful enchantments for shulker boxes: Siphon, Refill, Vacuum, and Void.",
 	"authors": [
 		"Shulker Enchantments contributors"
@@ -11,11 +11,11 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"dev.shulker.enchantments.ShulkerEnchantments"
+			"dev.nitjsefnie.shulkerenchantments.ShulkerEnchantments"
 		]
 	},
 	"mixins": [
-		"shulker_enchantments.mixins.json"
+		"shulker_enchantments_reborn.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.19.3",

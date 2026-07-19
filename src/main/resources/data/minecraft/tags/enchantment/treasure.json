@@ -1,8 +1,8 @@
 {
   "values": [
-    "shulker_enchantments:siphon",
-    "shulker_enchantments:refill",
-    "shulker_enchantments:vacuum",
-    "shulker_enchantments:void"
+    "shulker_enchantments_reborn:siphon",
+    "shulker_enchantments_reborn:refill",
+    "shulker_enchantments_reborn:vacuum",
+    "shulker_enchantments_reborn:void"
   ]
 }
