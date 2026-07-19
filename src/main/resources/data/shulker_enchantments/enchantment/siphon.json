@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.shulker_enchantments.siphon"
+  },
+  "max_cost": {
+    "base": 50,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "mainhand",
+    "offhand"
+  ],
+  "supported_items": "#shulker_enchantments:enchantable_container",
+  "weight": 2
+}
