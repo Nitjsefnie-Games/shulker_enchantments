@@ -1,7 +1,9 @@
-# Shulker Enchantments
+# Shulker Enchantments Reborn
 
 A **Fabric** mod for **Minecraft 26.2** that adds four helpful enchantments for shulker boxes.
 Server-side logic (works on a server even if clients don't have it installed).
+
+📦 **[Available on Modrinth](https://modrinth.com/mod/shulker-enchantments-reborn)**
 
 This is an independent, **clean-room reimplementation** of the *ideas* behind the four
 pickup/refill enchantments popularized by the GPL-licensed *EnchantedShulkers* mod. No code
