@@ -14,6 +14,7 @@ public class ShulkerEnchantments implements ModInitializer {
 	public void onInitialize() {
 		ShulkerEnchantmentsConfig.get();
 		RefillTickHandler.register();
+		LootInjection.register();
 		LOGGER.info("Shulker Enchantments initialized");
 	}
 }
