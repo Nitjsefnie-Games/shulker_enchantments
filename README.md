@@ -28,7 +28,7 @@ step left. A single shulker box may carry any combination of the four.
 
 ## Configuration
 
-A config file is written to `config/shulker_enchantments.json` on first run. Notable knobs:
+A config file is written to `config/shulker_enchantments_reborn.json` on first run. Notable knobs:
 
 - `generateSiphon` / `generateRefill` / `generateVacuum` / `generateVoid` — survival obtainability (all `true`)
 - `creativeSiphon` / `creativeRefill` / `creativeVacuum` / `creativeVoid` — allow for creative players (all `false`)
@@ -45,20 +45,6 @@ Requires **JDK 25**.
 ```bash
 ./gradlew build   # jar lands in build/libs/
 ```
-
-## Status / known limitations
-
-The mod compiles cleanly and mixin targets validate against the 26.2 classpath, but it has
-**not been runtime-tested inside a live Minecraft instance** yet. Please test in-game before
-relying on it. Known simplifications versus a full implementation:
-
-- The `generate*` config switches are applied statically via enchantment tags; toggling one at
-  runtime does not dynamically gate trades/loot.
-- "Refill while your own inventory is open" suppression is not enforced (it needs a client
-  companion channel); refill currently always runs on the tick trigger.
-- The Ender Chest can participate in container searches when `enchantableEnderChest` is on, but
-  the enchantment cannot be *applied* to an ender chest through the anvil (only the 17 shulker
-  boxes are in the supported-items tag).
 
 ## License
 
